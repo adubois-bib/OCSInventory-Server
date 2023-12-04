@@ -116,7 +116,7 @@ sub _init_snmp_map{
     # @bind_num = ();
     # Build the "DBI->prepare" sql select string 
     $sectionsMeta->{$section}->{sql_select_string} = "SELECT ID,$fields_string FROM $section 
-    #   WHERE SNMP_ID=? ORDER BY ".$DATA_MAP{$section}->{sortBy};
+       WHERE SNMP_ID=? ORDER BY ".$DATA_MAP{$section}->{sortBy};
     # # Build the "DBI->prepare" sql deletion string 
     # $sectionsMeta->{$section}->{sql_delete_string} = "DELETE FROM $section WHERE SNMP_ID=? AND ID=?";
     # # to avoid many "keys"
