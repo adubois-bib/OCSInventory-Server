@@ -93,6 +93,11 @@ sub _init_map{
  
       $field_index++;      
     }
+    # Build the "DBI->prepare" sql insert string 
+    for (@{$sectionsMeta->{$section}->{field_arrayref}}) {
+      s/^(.*)$/\`$1\`/;
+    }
+    
     # $fields_string = join ',', ('`HARDWARE_ID`', @{$sectionsMeta->{$section}->{field_arrayref}});
     # $sectionsMeta->{$section}->{sql_insert_string} = "INSERT INTO $section($fields_string) VALUES(";
     # for(0..@{$sectionsMeta->{$section}->{field_arrayref}}){
@@ -115,14 +120,14 @@ sub _init_map{
           WHEN NOT MATCHED BY SOURCE THEN
               DELETE;
       ";
-  }
+  
     $sectionsMeta->{$section}->{sql_select_string} = "SELECT ID,$fields_string FROM $section 
       WHERE HARDWARE_ID=? ORDER BY ".$DATA_MAP{$section}->{sortBy};
     # Build the "DBI->prepare" sql deletion string 
 #    $sectionsMeta->{$section}->{sql_delete_string} = "DELETE FROM $section WHERE HARDWARE_ID=? AND ID=?";
     # to avoid many "keys"
 #    push @$sectionsList, $section;
-
+  }
   }
 
   #Special treatment for hardware section
